@@ -81,6 +81,12 @@
             android:title="@string/show_lockscreen_media_art_title"
             android:defaultValue="true" />
 
+	<com.power.hub.preferences.SystemSettingSwitchPreference
+            android:key="enable_ripple_effect"
+            android:title="@string/enable_fingerprint_ripple_effect_title"
+            android:summary="@string/enable_fingerprint_ripple_effect_summary"
+            android:defaultValue="false" />
+
         <com.power.hub.preferences.SystemSettingSeekBarPreference
             android:key="lockscreen_media_blur"
             android:title="@string/lockscreen_media_blur_title"
