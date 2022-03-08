@@ -44,12 +44,6 @@
             android:key="traffic"
             android:fragment="com.power.hub.fragments.Traffic"
             android:title="@string/traffic_title" />
-
-        <com.power.hub.preferences.SystemSettingSwitchPreference
-            android:key="statusbar_colored_icons"
-            android:title="@string/statusbar_colored_icons_title"
-            android:summary="@string/statusbar_colored_icons_summary"
-            android:defaultValue="false" />
 			
 		<com.power.hub.preferences.SystemSettingSwitchPreference
             android:key="data_disabled_icon"
