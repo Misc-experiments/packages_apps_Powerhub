@@ -75,7 +75,6 @@ public class ThemeSettings extends DashboardFragment implements OnPreferenceChan
 	public static final String TAG = "ThemeSettings";
         private Context mContext;
 	
-	private String MONET_ENGINE_COLOR_OVERRIDE = "monet_engine_color_override";
     static final int DEFAULT_QS_PANEL_COLOR = 0xffffffff;
 	static final int DEFAULT = 0xff1a73e8;
 
@@ -85,7 +84,6 @@ public class ThemeSettings extends DashboardFragment implements OnPreferenceChan
     private ListPreference mLockClockStyles;
     private IOverlayManager mOverlayService;
     private UiModeManager mUiModeManager;
-	private ColorPickerPreference mMonetColor;
 	
 	@Override
     protected String getLogTag() {
@@ -105,19 +103,6 @@ public class ThemeSettings extends DashboardFragment implements OnPreferenceChan
         ContentResolver resolver = getActivity().getContentResolver();
 		final Resources res = getResources();
 		mContext =  getActivity();
-		
-		mMonetColor = (ColorPickerPreference)findPreference(MONET_ENGINE_COLOR_OVERRIDE);
-        int intColor = Settings.Secure.getInt(resolver, MONET_ENGINE_COLOR_OVERRIDE, Color.WHITE);
-        String hexColor = String.format("#%08x", (0xffffff & intColor));
-        mMonetColor.setNewPreviewColor(intColor);
-        mMonetColor.setSummary(hexColor);
-        mMonetColor.setOnPreferenceChangeListener(this);
-
-        mLockClockStyles = (ListPreference) findPreference(CUSTOM_CLOCK_FACE);
-        String mLockClockStylesValue = getLockScreenCustomClockFace();
-        mLockClockStyles.setValue(mLockClockStylesValue);
-        mLockClockStyles.setSummary(mLockClockStyles.getEntry());
-        mLockClockStyles.setOnPreferenceChangeListener(this);
         }
 
     public boolean isAvailable() {
@@ -127,20 +112,6 @@ public class ThemeSettings extends DashboardFragment implements OnPreferenceChan
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         ContentResolver resolver = getActivity().getContentResolver();
-        if (preference == mMonetColor) {
-            String hex = ColorPickerPreference.convertToARGB(Integer
-                .parseInt(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.Secure.putInt(resolver,
-                MONET_ENGINE_COLOR_OVERRIDE, intHex);
-            return true;
-        } else if (preference == mLockClockStyles) {
-            setLockScreenCustomClockFace((String) newValue);
-            int index = mLockClockStyles.findIndexOfValue((String) newValue);
-            mLockClockStyles.setSummary(mLockClockStyles.getEntries()[index]);
-            return true;
-        }
         return false;
     }
 
